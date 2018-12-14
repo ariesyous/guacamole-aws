@@ -63,7 +63,9 @@ resource "aws_alb_listener" "list" {
     type = "forward"
   }
   load_balancer_arn = "${aws_alb.alb.arn}"
-  port = 80
+  port = 443
+  protocol = "HTTPS"
+  certificate_arn = "${var.certificate_arn}"
 }
 
 

@@ -32,6 +32,10 @@ bastion_instance_type = "t2.medium"
 # Key pair name for SSH 
 user_keyname = ""
 
+# SSL Certificate arn (either IAM or ACM managed)
+certificate_arn = ""
+
+
 
 
 

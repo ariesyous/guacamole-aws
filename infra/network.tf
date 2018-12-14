@@ -1,15 +1,15 @@
-# Provision networking resources for solution
+# Provision networking resources
 # We need 1 VPC, 2 Public subnets (for load balancer and NAT GW), 2 Internal Subnet (for Guacamole and Database)
-# And 2 VDI subnets
+# And 2 VDI subnets (for VDI VM's)
 
 
-#provision app vpc
+#provision vpc
 resource "aws_vpc" "app_vpc" {
   cidr_block = "192.168.0.0/16"
   assign_generated_ipv6_cidr_block = false
   enable_dns_support = true
   tags {
-    Name = "Guacamole VDI VPC"
+    Name = "Guacamole VPC"
   }
 }
 

@@ -1,5 +1,6 @@
 
-# aws endpoint provider
+# AWS endpoint provider
+
 
 provider "aws" {
 
