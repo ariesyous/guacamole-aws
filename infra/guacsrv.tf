@@ -32,30 +32,31 @@ resource "aws_instance" "guac-server1" {
   tags {
     Name = "Guacamole Server 1"
   }
+  # Needs the bastion server to exist since it runs the mysql init script before it can connect to the db
   depends_on = ["aws_instance.bastion-server1"]
   user_data = "${data.template_cloudinit_config.guacdeploy_config.rendered}"
 }
 
-
+# Security group definition
 resource "aws_security_group" "guac-sec" {
   name = "guacserver-secgroup"
   vpc_id = "${aws_vpc.app_vpc.id}"
 
-  # Internal HTTP access from anywhere
+  # Guac listens on 8080
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["192.168.0.0/16"]
   }
-  #ssh from anywhere (just for testing)
+  # SSH from within VPC (bastion connectivity)
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["192.168.0.0/16"]
   }
-  # ping access from anywhere
+  # ping access
   ingress {
     from_port   = 8
     to_port     = 0
@@ -64,6 +65,7 @@ resource "aws_security_group" "guac-sec" {
   }
 }
 
+/* Commenting out because it already exists
 #public access sg 
 
 # allow all egress traffic (needed for server to download packages)
@@ -78,3 +80,4 @@ resource "aws_security_group" "allout" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+*/

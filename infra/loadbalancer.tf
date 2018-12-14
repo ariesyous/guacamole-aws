@@ -51,11 +51,10 @@ resource "aws_alb_target_group" "targ" {
   vpc_id = "${aws_vpc.app_vpc.id}"
 }
 
-resource "aws_alb_target_group_attachment" "attach_web" {
+resource "aws_alb_target_group_attachment" "attach_guac" {
   target_group_arn = "${aws_alb_target_group.targ.arn}"
-  target_id = "${element(aws_instance.web-server.*.id, count.index)}"
+  target_id = "${aws_instance.guac-server1-server.id}"
   port = 8080
-  count = "${var.web_number}"
 }
 
 resource "aws_alb_listener" "list" {
