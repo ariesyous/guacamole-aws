@@ -1,4 +1,4 @@
-#Deploy Wordpress instances
+# Guacamole servers
 
 #Reference to bash script which prepares xenial image
 data "template_file" "wpdeploy"{
@@ -41,43 +41,6 @@ resource "aws_instance" "web-server" {
   user_data = "${data.template_cloudinit_config.wpdeploy_config.rendered}"
 }
 
-/* Having issues implementing this, will explore later
-resource "aws_instance" "web-server2" {
-  ami = "${var.web_ami}"
-  # The public SG is added for SSH and ICMP
-  vpc_security_group_ids = ["${aws_security_group.web-sec.id}", "${aws_security_group.allout.id}"]
-  instance_type = "${var.web_instance_type}"
-  subnet_id = "${aws_subnet.web_subnet2.id}"
-  # my private key for testing
-  key_name = "win3_aws"
-
-  tags {
-    Name = "AZ 2 web-server-${count.index}"
-  }
-  count = "${var.web_number1}"
-  depends_on = ["aws_db_instance.wpdb"]
-  #user_data = "${data.template_file.wpdeploy.rendered}"
-  user_data = "${data.template_cloudinit_config.wpdeploy_config.rendered}"
-}
-*/
-
-# bastion server
-/*
-resource "aws_instance" "bastion" {
-  ami = "${var.web_ami}"
-  # The public SG is added for SSH and ICMP
-  vpc_security_group_ids = ["${aws_security_group.web-sec.id}", "${aws_security_group.allout.id}"]
-  instance_type = "${var.web_instance_type}"
-  subnet_id = "${aws_subnet.pub_subnet1.id}"
-  # my private key for testing
-  #key_name = "win3_aws"
-  #get public ip
-  associate_public_ip_address = true
-
-  depends_on = ["aws_db_instance.wpdb"]
-  #user_data = "${data.template_file.wpdeploy.rendered}"
-}
-*/
 
 resource "aws_security_group" "web-sec" {
   name = "webserver-secgroup"
@@ -105,7 +68,6 @@ resource "aws_security_group" "web-sec" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
 
 #public access sg 
 

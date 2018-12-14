@@ -26,11 +26,11 @@ resource "aws_db_instance" "guacdb" {
   vpc_security_group_ids = ["${aws_security_group.db.id}"]
 
 }
+# Security group definition for database
 
 resource "aws_security_group" "db" {
   name = "db-secgroup"
   vpc_id = "${aws_vpc.app_vpc.id}"
-
 
   ingress {
     from_port   = 3306
