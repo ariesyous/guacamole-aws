@@ -126,22 +126,14 @@ resource "aws_nat_gateway" "gw2" {
 resource "aws_route_table" "natroute1" {
   vpc_id = "${aws_vpc.app_vpc.id}"
    route {
-       cidr_block = "192.168.20.0/24"
-       gateway_id = "${aws_nat_gateway.gw1.id}"
-   }
-   route {
-       cidr_block = "192.168.30.0/24"
+       cidr_block = "0.0.0.0/0"
        gateway_id = "${aws_nat_gateway.gw1.id}"
    }
 }
 resource "aws_route_table" "natroute2" {
   vpc_id = "${aws_vpc.app_vpc.id}"
    route {
-       cidr_block = "192.168.21.0/16"
-       gateway_id = "${aws_nat_gateway.gw2.id}"
-   }
-   route {
-       cidr_block = "192.168.31.0/16"
+       cidr_block = "0.0.0.0/0"
        gateway_id = "${aws_nat_gateway.gw2.id}"
    }
 }

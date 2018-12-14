@@ -3,3 +3,4 @@
 infra/.terraform/plugins/windows_amd64/lock.json
 *.exe
 *.tfstate
+*.backup
