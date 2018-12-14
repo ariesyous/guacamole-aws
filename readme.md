@@ -4,6 +4,12 @@
 
 We'll deploy an RDS database, a guacd daemon and a Guacamole front end server, along with a Linux VM as the VDI server. You can also create your own VDI and connect to them via Guacamole once it's deployed, I included a Linux script simply for a reference. 
 
+## What's Guacamole? 
+
+From https://guacamole.apache.org/ -   
+"Apache Guacamole is a  **clientless remote desktop gateway**. It supports standard protocols like VNC, RDP, and SSH. We call it  _clientless_  because no plugins or client software are required. Thanks to HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser."
+
+
 ## Architecture
 ![Overview](https://raw.githubusercontent.com/aries-strato/guacamole-aws/master/diagram.png)
 
