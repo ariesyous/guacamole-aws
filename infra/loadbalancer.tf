@@ -53,7 +53,7 @@ resource "aws_alb_target_group" "targ" {
 
 resource "aws_alb_target_group_attachment" "attach_guac" {
   target_group_arn = "${aws_alb_target_group.targ.arn}"
-  target_id = "${aws_instance.guac-server1-server.id}"
+  target_id = "${aws_instance.guac-server1.id}"
   port = 8080
 }
 

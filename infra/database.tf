@@ -4,7 +4,7 @@
 #make db subnet group 
 resource "aws_db_subnet_group" "dbsubnet" {
   name       = "main"
-  subnet_ids = ["${aws_subnet.db_subnet1.id}", "${aws_subnet.db_subnet2.id}"]
+  subnet_ids = ["${aws_subnet.priv_subnet1.id}", "${aws_subnet.priv_subnet2.id}"]
 }
 
 #provision the database
