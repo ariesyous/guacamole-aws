@@ -54,12 +54,12 @@ resource "aws_subnet" "vdi_subnet1" {
 }
 
 #provision VDI subnet 2
-resource "aws_subnet" "vdi_subnet1" {
+resource "aws_subnet" "vdi_subnet2" {
   vpc_id = "${aws_vpc.app_vpc.id}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
-  cidr_block = "192.168.20.0/24"
+  availability_zone = "${data.aws_availability_zones.available.names[1]}"
+  cidr_block = "192.168.21.0/24"
   tags {
-    Name = "VDI subnet 1"
+    Name = "VDI subnet 2"
   }
 }
 
@@ -121,18 +121,45 @@ resource "aws_nat_gateway" "gw2" {
 }
 
 # Add route table for NAT GW 
+
 resource "aws_route_table" "natroute1" {
   vpc_id = "${aws_vpc.app_vpc.id}"
    route {
-       cidr_block = "0.0.0.0/0"
+       cidr_block = "192.168.0.0/16"
        gateway_id = "${aws_nat_gateway.gw1.id}"
    }
 }
-# Associate VDI Subnet with AWS Route table for the NAT Gateway 
-resource "aws_route_table_association" "a" { 
-  subnet_id = "${aws_subnet.vdi_subnet.id}"
+resource "aws_route_table" "natroute2" {
+  vpc_id = "${aws_vpc.app_vpc.id}"
+   route {
+       cidr_block = "192.168.0.0/16"
+       gateway_id = "${aws_nat_gateway.gw2.id}"
+   }
+}
+# Associate VDI Subnets with AWS Route table for the NAT Gateway 
+resource "aws_route_table_association" "vdi1" { 
+  subnet_id = "${aws_subnet.vdi_subnet1.id}"
   route_table_id = "${aws_route_table.natroute1.id}"
 }
+
+resource "aws_route_table_association" "vdi2" { 
+  subnet_id = "${aws_subnet.vdi_subnet2.id}"
+  route_table_id = "${aws_route_table.natroute2.id}"
+}
+
+# Associate private subnets with NAT gw route tables
+
+resource "aws_route_table_association" "int1" { 
+  subnet_id = "${aws_subnet.priv_subnet1.id}"
+  route_table_id = "${aws_route_table.natroute1.id}"
+}
+
+resource "aws_route_table_association" "int2" { 
+  subnet_id = "${aws_subnet.priv_subnet2.id}"
+  route_table_id = "${aws_route_table.natroute2.id}"
+}
+
+
 
 
 

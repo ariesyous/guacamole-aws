@@ -29,7 +29,7 @@ resource "aws_instance" "bastion-server1" {
   ami = "${var.bastion_ami}"
   vpc_security_group_ids = ["${aws_security_group.bastion-sec.id}", "${aws_security_group.allout.id}"]
   instance_type = "${var.bastion_instance_type}"
-  subnet_id = "${aws_subnet.public_subnet1.id}"
+  subnet_id = "${aws_subnet.pub_subnet1.id}"
   key_name = "${var.user_keyname}"
 
   tags {
