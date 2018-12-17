@@ -1,6 +1,7 @@
 # Deploy bastion
 # The bastion also has to pull the db configuration script and run it the first time it's spawned. 
 
+
 data "template_file" "bastdeploy"{
   template = "${file("./bastdeploy.cfg")}"
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-We'll deploy an RDS database, a guacd daemon and a Guacamole front end server, along with a Linux VM as the VDI server. You can also create your own VDI and connect to them via Guacamole once it's deployed, I included a Linux script simply for a reference. 
+This Terraform script will deploy a highly available Apache Guacamole environment into your AWS region of choice. O
 
 ## What's Guacamole? 
 
@@ -19,6 +19,14 @@ The infra folder contains scripts to deploy Guacamole infrastructure. The vdi fo
 
 1 RDS instance (MySQL), 1 VPC, 6 subnets (2 public, 2 private, 2 for VDI), 2 NAT gateways, 1 ALB.
 
-Terraform, Ubuntu Linux 16.04 LTS cloud image (for infra), internet connectivity. 
+Terraform, Ubuntu Linux 16.04 LTS cloud image to run the Guacamole containers is all that's needed to deploy it.  
+
+## terraform.tfvars
+Populate the file (terraform.tfvars.sample, and omit the .sample extension) with your respective input. You need to upload or generate a certificate via ACM or IAM for the ALB.
+
+Also include the name of the keypair you would like to use for the bastion host.
+
+The cloudinit scripts are written for Ubuntu Xenial (16.04 LTS) so use a cloud-enabled image for those. 
+
 
 

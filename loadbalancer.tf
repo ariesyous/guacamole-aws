@@ -18,7 +18,7 @@ resource "aws_security_group" "lb-sec" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  #ping from anywhere
+  #ping from anywhere - can be omitted if unnecessary
     ingress {
     from_port   = 8
     to_port     = 0
